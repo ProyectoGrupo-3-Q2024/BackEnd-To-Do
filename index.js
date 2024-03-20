@@ -14,8 +14,3 @@ app.listen(port, ()=>{
 
 });
 
-<<<<<<< HEAD
-console.log("Hello work")
-=======
-console.log("Hola Mundo")
->>>>>>> 9c2a3ee3ab45b33559bd2a3f4b92dc8a2f96e670
