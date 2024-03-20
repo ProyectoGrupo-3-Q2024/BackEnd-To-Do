@@ -36,6 +36,44 @@ const postLista = async (req,res) => {
     }
 }
 
+const dltLista = async (req,res) => {
+   
+   try {
+    const params = [req.params.id]
+
+    const sql = `UPDATE tbl_to_do
+                 SET activo = false
+                 WHERE id = $1
+                 RETURNING 'Lista Borrada' mensaje`
+
+    const result = await db.query(sql,params) 
+    res.json(result)
+   } catch (error) {
+    res.status(500).json(error.message)
+   }
+      
+}
+
+const putLista = async (req,res) => {
+    try {
+        const {nombre,descripcion} = req.body
+        const {id} = req.params
+
+        const params = [nombre, descripcion, id]
+
+        const sql = `UPDATE tbl_to_do
+                     SET nombre = $1,
+                     descripcion = $2
+                     WHERE id = $3
+                     RETURNING nombre, descripcion`
+
+        const result = await db.query(sql, params)
+        res.json(result) 
 
 
-export {getLista, postLista}
+    } catch (e) {
+        res.status(500).json({"mensaje": e.message})
+    }
+}
+
+export {getLista, postLista, dltLista,putLista}
